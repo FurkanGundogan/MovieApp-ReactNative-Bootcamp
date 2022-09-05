@@ -3,10 +3,11 @@ import React from 'react'
 import SignInScreen from './SignInScreen'
 import SignUpForm from '../components/SignUpForm'
 import Auth from './Auth'
+import SignUpScreen from './SignUpScreen'
 
 const Home = () => {
   return (
-      <Auth/>
+      <SignUpScreen/>
   )
 }
 

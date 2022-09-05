@@ -1,33 +1,32 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-
+import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 const Auth = () => {
-    const [user, setuser] = useState()
-    const getUser = () => {
-        axios.get('http://localhost:3000/user')
+  const [user, setuser] = useState();
+  const getUser = () => {
+    axios.get('http://192.168.1.20:3000/user')
             .then(response => {
                 setuser(response.data)
+                console.log("user",response.data);
             })
             .catch(error => {
                 console.log(error);
                 alert(error)
             });
-    }
-    useEffect(() => {
-        getUser()
-    }, [])
-    
+
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <View>
-        <Text>Auth</Text>
-        {
-            user ? <Text>Var</Text>:<Text>Yok</Text>
-        }
-      
+      <Text>Auth</Text>
+      {user ? <Text>Var</Text> : <Text>Yok</Text>}
     </View>
-  )
-}
+  );
+};
 
-export default Auth
+export default Auth;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
