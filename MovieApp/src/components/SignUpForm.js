@@ -5,10 +5,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-
+import { AsyncStorage } from 'react-native';
 const SignUpForm = () => {
+ 
   const initialState = {
     id: '0',
     email: 'furkangundogan14@outlook.com',
@@ -28,22 +29,34 @@ const SignUpForm = () => {
     }));
     console.log(userInfo);
   };
-  const submitUser = () => {
-    
+  const submitUser = async () => {
     postUser(userInfo);
-    console.log('user set completed:', userInfo);
+    const jsonValue = JSON.stringify(userInfo)
+    await AsyncStorage.setItem("@user",jsonValue);
+    getUser()
+    
   };
 
+  const getUser = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@user')
+      if(value !== null) {
+        console.log("store:",value)
+       
+      }
+    } catch(e) {
+      // error reading value
+    }
+  }
+
+ 
   const postUser = userInfo => {
-    axios
-      .post('http://192.168.1.20:3000/user', {
-        userInfo,
-      })
-      .then(response => {
-        //if (response.status === 201) {
-        alert('Success', response.status);
-        //}
-      });
+    axios.post('http://192.168.1.20:3000/users', userInfo).then(response => {
+      if (response.status === 201) {
+        alert('Success 201', response.statusCode);
+
+      }
+    });
   };
 
   return (

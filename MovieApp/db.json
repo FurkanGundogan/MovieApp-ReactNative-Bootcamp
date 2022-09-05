@@ -16,8 +16,8 @@
   "profile": {
     "name": "typicode"
   },
-  "user": {
-    "userInfo": {
+  "users": [
+    {
       "id": "0",
       "email": "furkangundogan14@outlook.com",
       "password": "123123",
@@ -27,5 +27,5 @@
       "username": "furu14",
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Jason_Statham_at_Marvel-Rolle.jpg/640px-Jason_Statham_at_Marvel-Rolle.jpg"
     }
-  }
+  ]
 }
