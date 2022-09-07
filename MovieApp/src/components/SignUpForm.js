@@ -8,6 +8,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
+// eslint-disable-next-line no-console
 const SignUpForm = () => {
  
   const initialState = {
@@ -36,7 +37,7 @@ const SignUpForm = () => {
     getUser()
     
   };
-
+  // getuser taşınacak
   const getUser = async () => {
     try {
       const value = await AsyncStorage.getItem('@user')

@@ -1,17 +1,23 @@
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import {AsyncStorage} from 'react-native';
+// eslint-disable-next-line no-console
 
+import React, {useState} from 'react';
+import { setUser } from '../store';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 const SignInForm = () => {
   const initialState = {
     id: '0',
-    email: '',
-    password: '',
+    email: 'furkangundogan14@outlook.com',
+    password: '123123',
     image:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Jason_Statham_at_Marvel-Rolle.jpg/640px-Jason_Statham_at_Marvel-Rolle.jpg',
   };
@@ -23,10 +29,32 @@ const SignInForm = () => {
     }));
     console.log(userInfo);
   };
-  const submitUser = () => {
-    setUser(userInfo);
-    console.log('user set completed:', userInfo);
-  };
+
+
+  const login = () =>{
+      const email=userInfo?.email
+      const password=userInfo?.password
+      console.log("url:",`http://192.168.1.20:3000/user?email=${email}&password=${password}`)
+      axios
+        .get(`http://192.168.1.20:3000/users?email=${email}&password=${password}`)
+        .then(response => {
+          submitUser();
+          console.log('login completed', response.data);
+        })
+        .catch(error => {
+          console.log(error);
+          Alert.alert("Invalid email or password");
+        });
+  }
+  const dispatch=useDispatch()
+  const submitUser = async() => {
+    const backupinfo={...userInfo}
+    const jsonValue = JSON.stringify(backupinfo)
+    await AsyncStorage.setItem("@user",jsonValue);
+    dispatch(setUser(userInfo));
+    
+    console.log('user locale set completed:', userInfo);
+  }; // eslint-disable-next-line no-console
 
   return (
     <View style={styles.container}>
@@ -45,7 +73,7 @@ const SignInForm = () => {
         value={userInfo?.password}
         onChangeText={e => handleChange(e, 'password')}
       />
-      <TouchableOpacity style={styles.submitbutton} onPress={submitUser}>
+      <TouchableOpacity style={styles.submitbutton} onPress={login}>
         <Text style={styles.buttonText}>SIGN IN</Text>
       </TouchableOpacity>
       <Text style={styles.askText}>Dont't have an account?</Text>

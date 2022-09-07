@@ -1,29 +1,57 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
+
+import {AsyncStorage} from 'react-native';
+// eslint-disable-next-line no-console
+
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-const Auth = () => {
-  const [user, setuser] = useState();
-  const getUser = () => {
-    axios.get('http://192.168.1.20:3000/user')
-            .then(response => {
-                setuser(response.data)
-                console.log("user",response.data);
-            })
-            .catch(error => {
-                console.log(error);
-                alert(error)
-            });
+import Home from './Home';
+import SignInScreen from './SignInScreen';
 
+import {useDispatch, useSelector} from 'react-redux';
+import {setUser} from '../store';
+import LoadingForLoginScreen from './LoadingForLoginScreen';
+const Auth = () => {
+  const dispatch = useDispatch();
+  const [loading, setloading] = useState(false);
+  const user = useSelector(state => state.user);
+  console.log('auth user:', user);
+
+  const getUserFromLocal = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@user');
+      console.log('val:', value);
+      if (value !== null) {
+        let myval = JSON.parse(value);
+        const {email, password} = myval;
+        axios
+          .get(
+            `http://192.168.1.20:3000/users?email=${email}&password=${password}`,
+          )
+          .then(response => {
+            console.log('auto login user', response.data?.[0]);
+            dispatch(setUser(response.data?.[0]));
+          })
+          .catch(error => {
+            console.log(error);
+          })
+          .finally(() => setloading(false));
+      }else{
+        setloading(false)
+      }
+    } catch (e) {
+      // error reading value
+    }
   };
   useEffect(() => {
-    getUser();
-  }, []);
+    setloading(true);
+    getUserFromLocal();
+  }, []); // eslint-disable-next-line no-console
 
   return (
-    <View>
-      <Text>Auth</Text>
-      {user ? <Text>Var</Text> : <Text>Yok</Text>}
-    </View>
+    <>
+      {user ? <Home /> : loading ? <LoadingForLoginScreen /> : <SignInScreen />}
+    </>
   );
 };
 
