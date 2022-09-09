@@ -11,6 +11,7 @@ import SignInScreen from './SignInScreen';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUser} from '../store';
 import LoadingForLoginScreen from './LoadingForLoginScreen';
+import HomeStackNav from '../navigations/HomeStackNav';
 const Auth = () => {
   const dispatch = useDispatch();
   const [loading, setloading] = useState(false);
@@ -50,7 +51,7 @@ const Auth = () => {
 
   return (
     <>
-      {user ? <Home /> : loading ? <LoadingForLoginScreen /> : <SignInScreen />}
+      {user ? <HomeStackNav /> : loading ? <LoadingForLoginScreen /> : <SignInScreen />}
     </>
   );
 };

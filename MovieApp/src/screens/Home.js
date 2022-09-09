@@ -3,12 +3,14 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUser} from '../store';
 import {AsyncStorage} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 // eslint-disable-next-line no-console
 
 const Home = () => {
   const dispatch=useDispatch()
   const user = useSelector(state => state?.user);
   console.log('user:', user);
+  const navigation=useNavigation()
   const logout = async () => {
     
     dispatch(setUser(null))
@@ -17,6 +19,7 @@ const Home = () => {
   return (
     <View>
       <Text>Home</Text>
+      <TouchableOpacity onPress={()=>navigation.navigate("MovieDetails")}><Text>Go details</Text></TouchableOpacity>
       <TouchableOpacity onPress={logout}><Text>Logout</Text></TouchableOpacity>
     </View>
   );
