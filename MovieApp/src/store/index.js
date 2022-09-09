@@ -27,6 +27,19 @@ const movieSlice = createSlice({
   },
 });
 
+const searchListSlice = createSlice({
+  name: 'searchList',
+  initialState: [],
+  reducers: {
+    setSearchList: (state, action) => {
+      const movies = action.payload;
+      if(movies===null) return null
+      return [...movies]
+      
+    },
+  },
+});
+
 
 const themeSlice = createSlice({
   name: 'theme',
@@ -46,10 +59,12 @@ const themeSlice = createSlice({
 export const {setUser} = userSlice.actions;
 export const {toggleTheme} = themeSlice.actions;
 export const {setMovieList} = movieSlice.actions;
+export const {setSearchList} = searchListSlice.actions;
 export const store = configureStore({
   reducer: combineReducers({
     user: userSlice.reducer,
     theme: themeSlice.reducer,
     movie: movieSlice.reducer,
+    searchList: searchListSlice.reducer,
   }),
 });
