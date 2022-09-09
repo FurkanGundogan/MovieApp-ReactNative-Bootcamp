@@ -1,7 +1,7 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, { useState } from 'react';
 
-const Tabs = ({setSelected}) => {
+const Tabs = ({selected,setSelected}) => {
 
   
   const tabList = [
@@ -12,8 +12,8 @@ const Tabs = ({setSelected}) => {
     },
     {
       id: 1,
-      key:'latest',
-      name: 'Latest',
+      key:'now_playing',
+      name: 'Now Playing',
     },
     {
       id: 2,
@@ -28,8 +28,10 @@ const Tabs = ({setSelected}) => {
   ];
 
   const TabItem = ({item}) => (
-    <TouchableOpacity style={styles.tabItemWrapper} onPress={()=>setSelected(item?.key)}>
-      <Text style={styles.tabItemText}>{item?.name}</Text>
+    <TouchableOpacity style={
+      selected===item.key?{...styles.tabItemWrapper,...styles.selected} : styles.tabItemWrapper
+      } onPress={()=>setSelected(item?.key)}>
+      <Text style={selected===item.key?{...styles.tabItemText,...styles.selectedText} : styles.tabItemText}>{item?.name}</Text>
     </TouchableOpacity>
   );
 
@@ -51,9 +53,18 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 4,
   },
+  selected:{
+    backgroundColor:"white",
+    borderWidth:0.5,
+    borderColor:"black",
+    
+  },
   tabItemText: {
     color: 'white',
     textAlign: 'center',
     fontWeight: '800',
   },
+  selectedText:{
+    color:"#ff6a00"
+  }
 });

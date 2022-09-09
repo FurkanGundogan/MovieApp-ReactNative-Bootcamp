@@ -15,7 +15,7 @@ const HomeStackNav = () => {
             headerShown:false
           }} name="BottomNav" component={BottomNav} />
           <Stack.Screen name="MovieDetails" component={MovieDetailScreen} 
-          options={{headerShown:false}}
+          options={{title:"Movie Details"}}
           />
         </Stack.Navigator>
       )
