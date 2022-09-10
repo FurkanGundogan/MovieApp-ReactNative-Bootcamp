@@ -7,10 +7,11 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { AsyncStorage } from 'react-native';
+import {AsyncStorage} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 // eslint-disable-next-line no-console
 const SignUpForm = () => {
- 
+  const navigation = useNavigation();
   const initialState = {
     id: '0',
     email: 'furkangundogan14@outlook.com',
@@ -32,30 +33,26 @@ const SignUpForm = () => {
   };
   const submitUser = async () => {
     postUser(userInfo);
-    const jsonValue = JSON.stringify(userInfo)
-    await AsyncStorage.setItem("@user",jsonValue);
-    getUser()
-    
+    const jsonValue = JSON.stringify(userInfo);
+    await AsyncStorage.setItem('@user', jsonValue);
+    getUser();
   };
   // getuser taşınacak
   const getUser = async () => {
     try {
-      const value = await AsyncStorage.getItem('@user')
-      if(value !== null) {
-        console.log("store:",value)
-       
+      const value = await AsyncStorage.getItem('@user');
+      if (value !== null) {
+        console.log('store:', value);
       }
-    } catch(e) {
+    } catch (e) {
       // error reading value
     }
-  }
+  };
 
- 
   const postUser = userInfo => {
     axios.post('http://192.168.1.20:3000/users', userInfo).then(response => {
       if (response.status === 201) {
         alert('Success 201', response.statusCode);
-
       }
     });
   };
@@ -106,7 +103,9 @@ const SignUpForm = () => {
         <Text style={styles.buttonText}>SIGN UP</Text>
       </TouchableOpacity>
       <Text style={styles.askText}>Already have an account?</Text>
-      <TouchableOpacity style={styles.submitbutton}>
+      <TouchableOpacity
+        style={styles.submitbutton}
+        onPress={() => navigation.navigate('Sign In')}>
         <Text style={styles.buttonText}>SIGN IN</Text>
       </TouchableOpacity>
     </View>

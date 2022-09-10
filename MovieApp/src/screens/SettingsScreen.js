@@ -1,15 +1,20 @@
-import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { AsyncStorage, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useContext} from 'react';
 import UserInfo from '../components/UserInfo';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store';
 //import {UserContext} from '../contexts/userContext';
 
 //import useTheme from '../hooks/useTheme';
 
 const SettingsScreen = ({navigation}) => {
   const {theme} = ""
+  const dispatch=useDispatch()
   //const {setUser} = useContext(UserContext);
-  const logout = () => {
-    //setUser(null);
+
+  const logout = async () => {
+    dispatch(setUser(null));
+    await AsyncStorage.removeItem('@user');
   };
   return (
     <View style={{...styles.container,backgroundColor:theme?.backgroundColor}}>

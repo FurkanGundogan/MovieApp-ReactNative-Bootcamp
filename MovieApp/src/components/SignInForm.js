@@ -13,7 +13,9 @@ import React, {useState} from 'react';
 import { setUser } from '../store';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 const SignInForm = () => {
+  const navigation=useNavigation()
   const initialState = {
     id: '0',
     email: 'furkangundogan14@outlook.com',
@@ -38,8 +40,8 @@ const SignInForm = () => {
       axios
         .get(`http://192.168.1.20:3000/users?email=${email}&password=${password}`)
         .then(response => {
-          submitUser();
-          console.log('login completed', response.data);
+          submitUser(response.data[0]);
+          console.log('login completed', response.data[0]);
         })
         .catch(error => {
           console.log(error);
@@ -47,13 +49,13 @@ const SignInForm = () => {
         });
   }
   const dispatch=useDispatch()
-  const submitUser = async() => {
-    const backupinfo={...userInfo}
+  const submitUser = async(data) => {
+    const backupinfo={...data}
     const jsonValue = JSON.stringify(backupinfo)
     await AsyncStorage.setItem("@user",jsonValue);
-    dispatch(setUser(userInfo));
+    dispatch(setUser(data));
     
-    console.log('user locale set completed:', userInfo);
+    console.log('user locale set completed:', data);
   }; // eslint-disable-next-line no-console
 
   return (
@@ -77,7 +79,7 @@ const SignInForm = () => {
         <Text style={styles.buttonText}>SIGN IN</Text>
       </TouchableOpacity>
       <Text style={styles.askText}>Dont't have an account?</Text>
-      <TouchableOpacity style={styles.submitbutton}>
+      <TouchableOpacity style={styles.submitbutton} onPress={()=>navigation.navigate('Sign Up')}>
         <Text style={styles.buttonText}>SIGN UP NOW !</Text>
       </TouchableOpacity>
     </View>

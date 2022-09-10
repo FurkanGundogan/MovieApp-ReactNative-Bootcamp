@@ -21,11 +21,10 @@
       "id": "0",
       "email": "furkangundogan14@outlook.com",
       "password": "123123",
-      "confirmPassword": "123123",
-      "firstName": "Furkan",
-      "lastName": "Gundogan",
-      "username": "furu14",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Jason_Statham_at_Marvel-Rolle.jpg/640px-Jason_Statham_at_Marvel-Rolle.jpg"
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Jason_Statham_at_Marvel-Rolle.jpg/640px-Jason_Statham_at_Marvel-Rolle.jpg",
+      "firstname": "Furkan",
+      "lastname": "Gundogan",
+      "username": "Furu141"
     }
   ]
 }

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import SettingsScreen from '../screens/SettingsScreen';
+import ProfileSettingsScreen from '../screens/ProfileSettingsScreen';
 
 //import ThemeSettingsScreen from '../screens/ThemeSettingsScreen';
 //import ProfileSettingsScreen from '../screens/ProfileSettingsScreen';
@@ -14,6 +15,7 @@ const SettingsNav = () => {
     return (
         <Stack.Navigator>
           <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="Profile Settings" component={ProfileSettingsScreen} />
           
           
         </Stack.Navigator>

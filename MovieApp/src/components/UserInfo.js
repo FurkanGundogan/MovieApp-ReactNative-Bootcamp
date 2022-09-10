@@ -22,7 +22,7 @@ const UserInfo = () => {
         {'@' + user?.username}
       </Text>
       <Text style={{...styles.infoText,...theme?.userInfoText}}>
-        {user?.firstName} {user?.lastName}
+        {user?.firstname} {user?.lastname}
       </Text>
       <View style={styles.phoneWrapper}>
         <IconFeather
