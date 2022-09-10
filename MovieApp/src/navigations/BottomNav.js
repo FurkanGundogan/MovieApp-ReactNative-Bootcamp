@@ -8,6 +8,7 @@ import IconSearch from 'react-native-vector-icons/FontAwesome';
 import Home from '../screens/Home';
 import Account from '../screens/Account';
 import SearchScreen from '../screens/SearchScreen';
+import SettingsNav from './SettingsNav';
 
 const Tab = createBottomTabNavigator();
 const BottomNav = () => {
@@ -61,7 +62,7 @@ const BottomNav = () => {
             />
           ),
         }}
-        component={Account}
+        component={SettingsNav}
       />
     </Tab.Navigator>
   );
