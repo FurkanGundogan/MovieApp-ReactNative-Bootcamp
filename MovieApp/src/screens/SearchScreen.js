@@ -15,9 +15,9 @@ const SearchScreen = () => {
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
   useEffect(() => {
-    setTimeout(() => {
+   
       getMoviesBySearch();
-    }, 250);
+  
   }, [input]);
   const getMoviesBySearch = () => {
     axios
